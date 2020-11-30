@@ -22,6 +22,8 @@ open class APIService<Response: Decodable>: APIDelegate {
     /// A failure block for external entities to handle failures
     public var failureBlock: DefaultFailureBlock?
     
+    public init() {}
+    
     /// Call this to start the request
     public func requestService(request: APIRequest,
                                completionBlock: ((Response) -> Void)? = nil,
