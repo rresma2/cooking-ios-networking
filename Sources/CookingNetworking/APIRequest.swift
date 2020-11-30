@@ -70,6 +70,32 @@ open class APIRequest {
     public func cancel() {
         request?.cancel()
     }
+    
+    /// A useful operator to add key-value pairs to the parameters dictionary
+    public subscript(key: String) -> Any? {
+        get {
+            return parameters[key]
+        }
+        
+        set {
+            guard let newValue = newValue else {
+                return
+            }
+            
+            if let newInt = newValue as? Int {
+                parameters[key] = String(format: "%i", newInt)
+            } else if let newDouble = newValue as? Double {
+                parameters[key] = String(format: "%f", newDouble)
+            } else if let newString = newValue as? String {
+                parameters[key] = newString
+            } else if let newBool = newValue as? Bool {
+                parameters[key] = newBool ? "true" : "false"
+            } else if let newArr = newValue as? [Any] {
+                let array = newArr.map { String(describing: $0) }
+                parameters[key] = array
+            }
+        }
+    }
 }
 
 private extension APIRequest {
