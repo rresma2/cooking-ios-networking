@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 extension HTTPCookieStorage {
     private var sessionCookieName: String {
@@ -15,6 +16,14 @@ extension HTTPCookieStorage {
     /// Returns the session cookie
     public var sessionCookie: HTTPCookie? {
         return cookie(for: sessionCookieName)
+    }
+    
+    /// Returns a dictionary of cookie headers
+    var cookieHeaders: HTTPHeaders {
+        guard let cookies = cookies else {
+            return HTTPHeaders([])
+        }
+        return HTTPHeaders(HTTPCookie.requestHeaderFields(with: cookies))
     }
     
     /// Returns the cookie for the specified name

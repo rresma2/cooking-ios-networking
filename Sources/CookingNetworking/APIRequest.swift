@@ -33,7 +33,7 @@ open class APIRequest {
     
     public init(endpointRepresentable: EndpointRepresentable) {
         endpoint = endpointRepresentable.endpointString
-        headers = HTTPHeaders([])
+        headers = HTTPCookieStorage.shared.cookieHeaders
     }
     
     /// Call this function to make the request
